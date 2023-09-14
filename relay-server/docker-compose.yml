@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+
+  kubearmor-relay-server:
+    container_name: kubearmor-relay-server
+    image: delusionaloptimist/kubearmor-relay-server:latest
+    command: ["-enableReverseLogClient", "-enablePolicyServer", "-gRPCPort=32768"]
+    labels:
+      com.accuknox.com: kubearmor-relay-server
+    deploy:
+      labels:
+        com.accuknox.com: kubearmor-relay-server
+    ports:
+      "32768:32768"
+    networks:
+      - accuknox-net
