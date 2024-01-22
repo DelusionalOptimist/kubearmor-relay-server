@@ -3,7 +3,7 @@ services:
 
   kubearmor-relay-server:
     container_name: kubearmor-relay-server
-    image: delusionaloptimist/kubearmor-relay-server:latest
+    image: accuknox/kubearmor-relay-server:latest
     command: ["-enableReverseLogClient", "-enablePolicyServer", "-gRPCPort=32768"]
     labels:
       com.accuknox.com: kubearmor-relay-server
