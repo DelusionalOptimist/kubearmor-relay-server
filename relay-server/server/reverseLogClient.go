@@ -4,6 +4,7 @@
 package server
 
 import (
+	apb "github.com/accuknox/vm-adapter/protobuf"
 	"github.com/google/uuid"
 	kc "github.com/kubearmor/KubeArmor/KubeArmor/common"
 	kf "github.com/kubearmor/KubeArmor/KubeArmor/feeder"
@@ -17,7 +18,7 @@ type ReverseLogService struct {
 }
 
 // PushMessages Function
-func (ls *ReverseLogService) PushMessages(svr pb.ReverseLogService_PushMessagesServer) error {
+func (ls *ReverseLogService) PushMessages(svr apb.ReverseLogService_PushMessagesServer) error {
 	uid := uuid.Must(uuid.NewRandom()).String()
 
 	kg.Printf("Creating PushMessages stream for KubeArmor (%s)", uid)
@@ -64,7 +65,7 @@ func (ls *ReverseLogService) PushMessages(svr pb.ReverseLogService_PushMessagesS
 }
 
 // PushAlerts Function
-func (ls *ReverseLogService) PushAlerts(svr pb.ReverseLogService_PushAlertsServer) error {
+func (ls *ReverseLogService) PushAlerts(svr apb.ReverseLogService_PushAlertsServer) error {
 	uid := uuid.Must(uuid.NewRandom()).String()
 
 	kg.Printf("Creating PushAlerts stream for KubeArmor (%s)", uid)
@@ -111,7 +112,7 @@ func (ls *ReverseLogService) PushAlerts(svr pb.ReverseLogService_PushAlertsServe
 }
 
 // PushLogs Function
-func (ls *ReverseLogService) PushLogs(svr pb.ReverseLogService_PushLogsServer) error {
+func (ls *ReverseLogService) PushLogs(svr apb.ReverseLogService_PushLogsServer) error {
 	uid := uuid.Must(uuid.NewRandom()).String()
 
 	kg.Printf("Creating PushLogs stream for KubeArmor (%s)", uid)

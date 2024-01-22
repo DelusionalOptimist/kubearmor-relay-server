@@ -8,6 +8,7 @@ import (
 	"sync"
 	"time"
 
+	apb "github.com/accuknox/vm-adapter/protobuf"
 	kf "github.com/kubearmor/KubeArmor/KubeArmor/feeder"
 	pb "github.com/kubearmor/KubeArmor/protobuf"
 	cfg "github.com/kubearmor/kubearmor-relay-server/relay-server/config"
@@ -131,8 +132,8 @@ func NewRelayServer() *RelayServer {
 		pushLogService := &ReverseLogService{
 			EventStructs: &rs.EventStructs,
 		}
-		pb.RegisterReverseLogServiceServer(rs.GRPCServer, pushLogService)
-		healthServer.SetServingStatus(pb.ReverseLogService_ServiceDesc.ServiceName, grpc_health_v1.HealthCheckResponse_SERVING)
+		apb.RegisterReverseLogServiceServer(rs.GRPCServer, pushLogService)
+		healthServer.SetServingStatus(apb.ReverseLogService_ServiceDesc.ServiceName, grpc_health_v1.HealthCheckResponse_SERVING)
 	}
 
 	if cfg.GlobalCfg.EnablePolicyServer {
@@ -144,8 +145,8 @@ func NewRelayServer() *RelayServer {
 
 		// reverse policy server
 		reversePolicyService := &ReversePolicyServer{}
-		pb.RegisterReversePolicyServiceServer(rs.GRPCServer, reversePolicyService)
-		healthServer.SetServingStatus(pb.ReversePolicyService_ServiceDesc.ServiceName, grpc_health_v1.HealthCheckResponse_SERVING)
+		apb.RegisterReversePolicyServiceServer(rs.GRPCServer, reversePolicyService)
+		healthServer.SetServingStatus(apb.ReversePolicyService_ServiceDesc.ServiceName, grpc_health_v1.HealthCheckResponse_SERVING)
 		kg.Printf("Registered ReversePolicyServer for sending policies to KubeArmor")
 	}
 

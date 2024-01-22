@@ -1,11 +1,9 @@
 ### Builder
-
 FROM golang:1.21-alpine3.17 as builder
 
 RUN apk update
 RUN apk add --no-cache make
 
-ARG GH_PAT
 RUN mkdir /root/.ssh/ && \
     apk update && \
     apk add --no-cache git ca-certificates openssh && \
@@ -20,17 +18,13 @@ RUN touch /root/.ssh/known_hosts && \
 
 WORKDIR /usr/src/kubearmor-relay-server
 ENV GOPRIVATE="github.com/accuknox"
-
 COPY . .
-
 RUN cd relay-server && make
 
-RUN rm ~/.gitconfig
+RUN rm /root/.ssh/id_rsa GIT-KEY
 
 ### Copy executable image
 
-FROM alpine:3.14
-
+FROM alpine:3.17
 COPY --from=builder /usr/src/kubearmor-relay-server/relay-server/kubearmor-relay-server /KubeArmor/kubearmor-relay-server
-
 ENTRYPOINT ["/KubeArmor/kubearmor-relay-server"]

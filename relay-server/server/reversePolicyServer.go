@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
+	apb "github.com/accuknox/vm-adapter/protobuf"
 	kc "github.com/kubearmor/KubeArmor/KubeArmor/common"
 	pb "github.com/kubearmor/KubeArmor/protobuf"
 	kg "github.com/kubearmor/kubearmor-relay-server/relay-server/log"
@@ -16,7 +17,7 @@ type ReversePolicyServer struct {
 	//
 }
 
-func (ps *ReversePolicyServer) ContainerPolicy(svr pb.ReversePolicyService_ContainerPolicyServer) error {
+func (ps *ReversePolicyServer) ContainerPolicy(svr apb.ReversePolicyService_ContainerPolicyServer) error {
 	uid, conn := addPolicyStruct(containerPolicyType)
 	defer close(conn)
 	defer removePolicyStruct(containerPolicyType, uid)
@@ -41,7 +42,7 @@ func (ps *ReversePolicyServer) ContainerPolicy(svr pb.ReversePolicyService_Conta
 	return nil
 }
 
-func (ps *ReversePolicyServer) HostPolicy(svr pb.ReversePolicyService_HostPolicyServer) error {
+func (ps *ReversePolicyServer) HostPolicy(svr apb.ReversePolicyService_HostPolicyServer) error {
 	uid, conn := addPolicyStruct(hostPolicyType)
 	defer close(conn)
 	defer removePolicyStruct(hostPolicyType, uid)
